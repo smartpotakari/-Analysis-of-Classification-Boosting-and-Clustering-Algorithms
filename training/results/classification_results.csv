@@ -1,0 +1,5 @@
+Category,Algorithm,Dataset,Train Accuracy (%),Test Accuracy (%),Precision,Recall,F1-Score
+Classification,Decision Tree,Social Network Ads,99.69,88.75,0.8125,0.8966,0.8525
+Classification,Random Forest,Social Network Ads,99.69,90.0,0.8387,0.8966,0.8667
+Classification,K-Nearest Neighbors (KNN),Social Network Ads,91.88,90.0,0.8387,0.8966,0.8667
+Classification,Support Vector Machine (SVM),Social Network Ads,90.94,91.25,0.8438,0.931,0.8852

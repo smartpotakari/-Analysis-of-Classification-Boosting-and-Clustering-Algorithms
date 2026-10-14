@@ -1,0 +1,5 @@
+Category,Algorithm,Dataset,Train Accuracy (%),Test Accuracy (%),Precision,Recall,F1-Score
+Boosting,AdaBoost,Insurance,96.82,96.27,0.9091,0.9091,0.9091
+Boosting,Gradient Boosting,Insurance,100.0,97.39,0.9286,0.9455,0.9369
+Boosting,XGBoost,Insurance,100.0,97.01,0.9273,0.9273,0.9273
+Boosting,HistGradientBoosting,Insurance,100.0,97.39,0.9138,0.9636,0.9381

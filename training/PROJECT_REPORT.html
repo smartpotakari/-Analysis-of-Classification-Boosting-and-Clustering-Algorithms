@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Project Report — 12 Algorithms Benchmark</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2b6cb0;
+            --accent: #27ae60;
+            --accent-warm: #d97706;
+            --dark: #2d3748;
+            --light-bg: #f7fafc;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--dark);
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 30px auto;
+            background: var(--card-bg);
+            padding: 45px 55px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+
+        .header-banner {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1.main-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .badge-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 15px 0 0;
+        }
+
+        .badge {
+            background: #ebf8ff;
+            color: var(--primary-light);
+            border: 1px solid #bee3f8;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.success {
+            background: #f0fdf4;
+            color: #16a34a;
+            border-color: #bbf7d0;
+        }
+
+        .callout-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-light);
+            padding: 16px 20px;
+            border-radius: 0 6px 6px 0;
+            margin: 18px 0;
+            font-size: 13.5px;
+            color: #334155;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        h2.section-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+        }
+
+        h3.subsection-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+            margin: 16px 0 6px;
+        }
+
+        table.benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 13px;
+        }
+
+        table.benchmark-table th {
+            background: var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 9px 12px;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+        }
+
+        table.benchmark-table td {
+            padding: 7px 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        table.benchmark-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        table.benchmark-table tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .highlight-100 {
+            font-weight: 700;
+            color: #16a34a;
+        }
+
+        .figure-container {
+            margin: 22px 0;
+            text-align: center;
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+
+        .caption {
+            font-size: 12px;
+            color: #64748b;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        @media print {
+            body {
+                background: none;
+                font-size: 11pt;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header-banner">
+        <h1 class="main-title">Machine Learning Benchmark Report</h1>
+        <p class="subtitle">Comparative Experimental Analysis of 12 Algorithms Across Classification, Boosting, and Clustering</p>
+        <div class="badge-bar">
+            <span class="badge">12 ML Models</span>
+            <span class="badge">3 Canonical Datasets</span>
+            <span class="badge success">100% Training Fidelity Milestones</span>
+            <span class="badge">Scikit-Learn & XGBoost</span>
+        </div>
+    </div>
+
+    <!-- SECTION 1: EXECUTIVE SUMMARY -->
+    <div class="section page-break">
+        <h2 class="section-title">1. Executive Summary & Benchmark Architecture</h2>
+        <p>This report benchmarks twelve fundamental machine learning algorithms partitioned into three distinct learning paradigms, trained on actual datasets without data leakage:</p>
+        <ul style="margin: 10px 0 20px 25px;">
+            <li><b>Classification (4 Algorithms):</b> Decision Tree, Random Forest, K-Nearest Neighbors, and Support Vector Machine on Social Network Ads.</li>
+            <li><b>Boosting (4 Algorithms):</b> AdaBoost, Gradient Boosting, XGBoost, and HistGradientBoosting on Medical Insurance data for smoker classification.</li>
+            <li><b>Clustering (4 Algorithms):</b> K-Means, Agglomerative Hierarchical, DBSCAN, and Gaussian Mixture Models on Mall Customers for market segmentation.</li>
+        </ul>
+
+        <h3 class="subsection-title">Master Evaluation Summary (All 12 Algorithms)</h3>
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Algorithm</th>
+                    <th>Dataset</th>
+                    <th>Train Accuracy</th>
+                    <th>Test Accuracy / Sil.</th>
+                    <th>Key Characteristics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Classification</td><td>Decision Tree</td><td>Social Networks</td><td class="highlight-100">99.69%</td><td>88.75%</td><td>Recursive Information Gain</td></tr>
+                <tr><td>Classification</td><td>Random Forest</td><td>Social Networks</td><td class="highlight-100">99.69%</td><td>90.00%</td><td>100 Trees Bagging Ensemble</td></tr>
+                <tr><td>Classification</td><td>K-Nearest Neighbors</td><td>Social Networks</td><td>91.88%</td><td>90.00%</td><td>Instance-Based Spatial (k=5)</td></tr>
+                <tr><td>Classification</td><td>Support Vector Machine</td><td>Social Networks</td><td>90.94%</td><td>91.25%</td><td>Maximum Margin Hyperplane (RBF)</td></tr>
+                <tr><td>Boosting</td><td>AdaBoost</td><td>Insurance</td><td>96.82%</td><td>96.27%</td><td>Adaptive Sample Re-weighting</td></tr>
+                <tr><td>Boosting</td><td>Gradient Boosting</td><td>Insurance</td><td class="highlight-100">100.00%</td><td>97.39%</td><td>Sequential Pseudo-Residuals</td></tr>
+                <tr><td>Boosting</td><td>XGBoost</td><td>Insurance</td><td class="highlight-100">100.00%</td><td>97.01%</td><td>2nd-Order Taylor Regularized</td></tr>
+                <tr><td>Boosting</td><td>HistGradientBoosting</td><td>Insurance</td><td class="highlight-100">100.00%</td><td>97.39%</td><td>256-Bin Integer Histograms</td></tr>
+                <tr><td>Clustering</td><td>K-Means (k=5)</td><td>Mall Customers</td><td>Unsupervised</td><td>0.5547 Sil.</td><td>Centroid Inertia Minimization</td></tr>
+                <tr><td>Clustering</td><td>Agglomerative</td><td>Mall Customers</td><td>Unsupervised</td><td>0.5538 Sil.</td><td>Ward Linkage Hierarchical Tree</td></tr>
+                <tr><td>Clustering</td><td>DBSCAN</td><td>Mall Customers</td><td>Unsupervised</td><td>0.5577 Sil.</td><td>Density-Based with Noise Isolation</td></tr>
+                <tr><td>Clustering</td><td>GMM (k=5)</td><td>Mall Customers</td><td>Unsupervised</td><td>0.5537 Sil.</td><td>Expectation-Maximization Soft Fit</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION 2: DATASETS & PREPROCESSING -->
+    <div class="section page-break">
+        <h2 class="section-title">2. Datasets Architecture & Preprocessing Pipeline</h2>
+        <p>Three datasets were processed using a strict data hygiene protocol to prevent any data leakage between training and testing splits:</p>
+        
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Dataset</th>
+                    <th>Shape</th>
+                    <th>Features Selected</th>
+                    <th>Target Variable</th>
+                    <th>Missing Values</th>
+                    <th>Class Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Social Network Ads</td><td>400 × 5</td><td>Age, EstimatedSalary, Gender</td><td>Purchased (0/1)</td><td>0 (Clean)</td><td>0: 64.25% | 1: 35.75%</td></tr>
+                <tr><td>Medical Insurance</td><td>1,338 × 6</td><td>age, sex, bmi, children, charges</td><td>smoker (yes/no)</td><td>0 (Clean)</td><td>No: 79.52% | Yes: 20.48%</td></tr>
+                <tr><td>Mall Customers</td><td>200 × 5</td><td>Annual Income, Spending Score</td><td>None (Unsupervised)</td><td>0 (Clean)</td><td>5 Natural Clusters</td></tr>
+            </tbody>
+        </table>
+
+        <h3 class="subsection-title">Data Leakage Prevention Protocol</h3>
+        <p><b>1. ID Column Pruning:</b> Arbitrary identifier keys (<code>User ID</code>, <code>CustomerID</code>) were removed prior to model fitting to prevent artificial correlation artifacts.</p>
+        <p><b>2. Stratified Partitioning:</b> Train/test splits (80%/20%) were stratified based on target class frequencies to ensure representative sample distributions.</p>
+        <p><b>3. Leakage-Free Standardization:</b> <code>StandardScaler</code> was fitted strictly on training data (<code>scaler.fit_transform(X_train)</code>) and only applied to test data via <code>scaler.transform(X_test)</code>, ensuring zero test set distribution parameters were leaked during training.</p>
+    </div>
+
+    <!-- SECTION 3: CLASSIFICATION RESULTS -->
+    <div class="section page-break">
+        <h2 class="section-title">3. Part 1: Classification Benchmark & Confusion Matrices</h2>
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Train Accuracy</th>
+                    <th>Test Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>ROC-AUC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Decision Tree</td><td class="highlight-100">99.69%</td><td>88.75%</td><td>0.8125</td><td>0.8966</td><td>0.8525</td><td>0.8895</td></tr>
+                <tr><td>Random Forest</td><td class="highlight-100">99.69%</td><td>90.00%</td><td>0.8387</td><td>0.8966</td><td>0.8667</td><td>0.9341</td></tr>
+                <tr><td>K-Nearest Neighbors (KNN)</td><td>91.88%</td><td>90.00%</td><td>0.8387</td><td>0.8966</td><td>0.8667</td><td>0.9304</td></tr>
+                <tr><td>Support Vector Machine (SVM)</td><td>90.94%</td><td>91.25%</td><td>0.8438</td><td>0.9310</td><td>0.8852</td><td>0.9554</td></tr>
+            </tbody>
+        </table>
+
+        <div class="figure-container">
+            <img src="plots/classification_confusion_matrices.png" alt="Classification Confusion Matrices">
+            <p class="caption">Figure 1: Confusion Matrices for 4 Classification Algorithms on Held-Out Test Data (Social Network Ads).</p>
+        </div>
+    </div>
+
+    <!-- SECTION 4: DECISION BOUNDARIES -->
+    <div class="section page-break">
+        <h2 class="section-title">4. Classification: 2D Spatial Decision Boundaries</h2>
+        <div class="figure-container">
+            <img src="plots/classification_decision_boundaries.png" alt="Classification Decision Boundaries">
+            <p class="caption">Figure 2: 2D Decision Boundaries of 4 Classification Algorithms in Standardized Feature Space (Age vs Estimated Salary).</p>
+        </div>
+        <p><b>Spatial Insights:</b> The Decision Tree forms axis-parallel orthogonal step boundaries. Random Forest softens these steps through ensemble averaging. KNN forms local polygonal Voronoi-like decision boundaries. SVM with an RBF kernel constructs smooth non-linear parabolic margins that generalize cleanly.</p>
+    </div>
+
+    <!-- SECTION 5: BOOSTING BENCHMARK -->
+    <div class="section page-break">
+        <h2 class="section-title">5. Part 2: Boosting Benchmark & Smoker Risk Classification</h2>
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Train Accuracy</th>
+                    <th>Test Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>ROC-AUC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>AdaBoost</td><td>96.82%</td><td>96.27%</td><td>0.9091</td><td>0.9091</td><td>0.9091</td><td>0.9927</td></tr>
+                <tr><td>Gradient Boosting</td><td class="highlight-100">100.00%</td><td>97.39%</td><td>0.9286</td><td>0.9455</td><td>0.9369</td><td>0.9961</td></tr>
+                <tr><td>XGBoost</td><td class="highlight-100">100.00%</td><td>97.01%</td><td>0.9273</td><td>0.9273</td><td>0.9273</td><td>0.9949</td></tr>
+                <tr><td>HistGradientBoosting</td><td class="highlight-100">100.00%</td><td>97.39%</td><td>0.9138</td><td>0.9636</td><td>0.9381</td><td>0.9940</td></tr>
+            </tbody>
+        </table>
+
+        <div class="figure-container">
+            <img src="plots/boosting_confusion_matrices.png" alt="Boosting Confusion Matrices">
+            <p class="caption">Figure 3: Confusion Matrices for 4 Boosting Algorithms on 268 Test Records (Insurance Smoker Classification).</p>
+        </div>
+    </div>
+
+    <!-- SECTION 6: BOOSTING FEATURE IMPORTANCE -->
+    <div class="section page-break">
+        <h2 class="section-title">6. Boosting: Feature Importances & Clinical Drivers</h2>
+        <div class="figure-container">
+            <img src="plots/boosting_feature_importances.png" alt="Boosting Feature Importances">
+            <p class="caption">Figure 4: Relative Feature Importances Across Boosting Algorithms for Predicting Smoker Status.</p>
+        </div>
+        <p><b>Clinical Interpretation:</b> All boosting algorithms identify <code>charges</code> as the primary feature (>74% to >89% relative weight). Smokers incur 3x-4x higher medical bills than non-smokers. <code>bmi</code> serves as a secondary amplifier, where high BMI combined with smoking creates an extreme medical claim profile.</p>
+    </div>
+
+    <!-- SECTION 7: CLUSTERING BENCHMARK -->
+    <div class="section page-break">
+        <h2 class="section-title">7. Part 3: Clustering Benchmark & Customer Segments</h2>
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Clusters Found</th>
+                    <th>Noise Points</th>
+                    <th>Silhouette Score</th>
+                    <th>Davies-Bouldin Index</th>
+                    <th>Calinski-Harabasz Index</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>K-Means (k=5)</td><td>5</td><td>0</td><td class="highlight-100">0.5547</td><td>0.5722</td><td>248.65</td></tr>
+                <tr><td>Agglomerative Hierarchical</td><td>5</td><td>0</td><td>0.5538</td><td>0.5779</td><td>244.41</td></tr>
+                <tr><td>DBSCAN</td><td>6</td><td>23</td><td class="highlight-100">0.5577</td><td>0.5106</td><td>245.36</td></tr>
+                <tr><td>Gaussian Mixture Model (GMM)</td><td>5</td><td>0</td><td>0.5537</td><td>0.5760</td><td>244.94</td></tr>
+            </tbody>
+        </table>
+
+        <div class="figure-container">
+            <img src="plots/clustering_visualizations.png" alt="Clustering Visualizations">
+            <p class="caption">Figure 5: 2D Cluster Visualizations of 4 Clustering Algorithms on Mall Customers (Annual Income vs Spending Score).</p>
+        </div>
+    </div>
+
+    <!-- SECTION 8: 100% ACCURACY ANALYSIS -->
+    <div class="section">
+        <h2 class="section-title">8. Special Focus: The 100% Accuracy Milestone Analysis</h2>
+        <div class="figure-container">
+            <img src="plots/accuracy_100_percent_demonstration.png" alt="100% Accuracy Demonstration">
+            <p class="caption">Figure 6: Supervised Learning Benchmark: Training vs Testing Accuracy Highlighting 100.0% Training Milestones.</p>
+        </div>
+
+        <div class="callout-box">
+            <b>Mathematical Proof & Explanations:</b><br/>
+            <b>1. Gradient Boosting, XGBoost, and HistGradientBoosting reach 100.00% Training Accuracy:</b> With sufficient tree capacity and sequential residual fitting, cross-entropy loss is driven to near zero on the training set.<br/>
+            <b>2. Why Decision Trees reach exactly 99.69% (The Physical Limit):</b> In <code>social_networks.csv</code>, row 59 (Female, Age 32, Salary $117k, Purchased=0) and row 182 (Female, Age 32, Salary $117k, Purchased=1) share identical features but have opposite labels. No deterministic function can output both 0 and 1 for the same inputs. Max theoretical accuracy is exactly 319/320 = 99.6875% ≈ 99.69%.<br/>
+            <b>3. Generalization vs Overfitting:</b> Out-of-sample test accuracy remains high at 97.39% (Insurance) and 91.25% (Social Networks), demonstrating that the models learned valid decision boundaries rather than mere noise.
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
